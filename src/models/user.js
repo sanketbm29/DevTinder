@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const validator = require("validator");
 const userSchema = new mongoose.Schema(
   {
     firstName: {
@@ -17,10 +17,20 @@ const userSchema = new mongoose.Schema(
       required: [true, "EmailID name is mandatory"],
       trim: true,
       unique: true,
+      validate(value) {
+        if (!validator.isEmail(value)) {
+          throw new Error("Invalid email address: " + value);
+        }
+      },
     },
     password: {
       type: String,
       required: [true, "password name is mandatory"],
+      validate(value) {
+        if (!validator.isStrongPassword(value)) {
+          throw new Error("Password is not Strong: " + value);
+        }
+      },
     },
     age: {
       type: Number,
@@ -36,7 +46,13 @@ const userSchema = new mongoose.Schema(
     },
     photoUrl: {
       type: String,
-      default: "",
+      default:
+        "https://www.freepik.com/free-photo/couple-making-heart-from-hands-sea-shore_3616343.htm#fromView=keyword&page=1&position=0&uuid=ac3c6b74-4d6d-4e33-a1b5-e16ae204102c&query=Love",
+      validate(value) {
+        if (!validator.isURL(value)) {
+          throw new Error("Invalid photo URL: " + value);
+        }
+      },
     },
     about: {
       type: String,
