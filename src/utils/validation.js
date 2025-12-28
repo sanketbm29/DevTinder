@@ -31,4 +31,16 @@ const validateEditProfileData = (req) => {
   return isEditAllowed;
 };
 
-module.exports = { validateSignupData, validateEditProfileData };
+const validateResetPassword = (req) => {
+  const { newPassword, confirmPassword } = req.body;
+
+  if (newPassword !== confirmPassword) {
+    throw new Error("Passwords do not match");
+  }
+};
+
+module.exports = {
+  validateSignupData,
+  validateEditProfileData,
+  validateResetPassword,
+};
