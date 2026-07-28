@@ -55,7 +55,7 @@ requestRouter.post(
     } catch (err) {
       res.status(400).send("ERROR: " + err.message);
     }
-  }
+  },
 );
 
 requestRouter.post(
@@ -90,7 +90,7 @@ requestRouter.post(
     } catch (err) {
       res.status(400).send("ERROR: ", err.message);
     }
-  }
+  },
 );
 
 module.exports = requestRouter;
